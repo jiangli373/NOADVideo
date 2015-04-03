@@ -12,7 +12,7 @@ router.post('/getmp4', function(req, res) {
 
   var url = req.body.url;
 
-  video(url, true,function (err,data) {
+  video(url, 'MP4',function (err,data) {
 
     var retjson = {
       code:0,
