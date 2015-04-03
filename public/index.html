@@ -152,6 +152,9 @@
 
 
             var url = $('#url').val();
+            if(!url){
+                alert('没有地址，怎么帮你解析呢');
+            }
 
             $.post('/video/getmp4',
                     {
