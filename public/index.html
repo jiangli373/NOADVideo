@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Narrow Jumbotron Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="skin/pink.flag/css/jplayer.pink.flag.min.css" rel="stylesheet" type="text/css" />
+    <!-- Custom styles for this template -->
+    <link href="jumbotron-narrow.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="javascripts/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="javascripts/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="jplayer/jquery.jplayer.min.js"></script>
+    <script type="text/javascript" src="jplayer/jplayer.playlist.min.js"></script>
+    <style>
+        .list-group-item{word-break: break-all;}
+    </style>
+    <script>
+        $(function () {
+
+             myPlaylist = new jPlayerPlaylist({
+                jPlayer: "#jquery_jplayer_N",
+                cssSelectorAncestor: "#jp_container_N"
+            }, [], {
+                playlistOptions: {
+                    enableRemoveControls: false
+                },
+                swfPath: "jplayer",
+                supplied: "m4v",
+                useStateClassSkin: true,
+                autoBlur: false,
+                smoothPlayBar: true,
+                keyEnabled: true,
+                audioFullScreen: true
+            });
+        });
+   </script>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="header clearfix">
+
+        <h3 class="text-muted">无广告视频播放</h3>
+    </div>
+
+    <div class="jumbotron">
+        <h3>视频地址</h3>
+        <p>
+            <input type="text" class="form-control"  aria-describedby="basic-addon1" id="url" value="http://v.youku.com/v_show/id_XODI5ODQxMzEy.html">
+        </p>
+
+        <p>
+            <a class="btn btn-primary btn-lg" href="javascripts:void(0)" role="button" id="submit" >提交</a>
+        </p>
+
+
+        <div id="jp_container_N" class="jp-video" role="application" aria-label="media player">
+            <div class="jp-type-playlist">
+                <div id="jquery_jplayer_N" class="jp-jplayer"></div>
+                <div class="jp-gui">
+                    <div class="jp-video-play">
+                        <button class="jp-video-play-icon" role="button" tabindex="0">play</button>
+                    </div>
+                    <div class="jp-interface">
+                        <div class="jp-progress">
+                            <div class="jp-seek-bar">
+                                <div class="jp-play-bar"></div>
+                            </div>
+                        </div>
+                        <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
+                        <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
+                        <div class="jp-details">
+                            <div class="jp-title" aria-label="title">&nbsp;</div>
+                        </div>
+                        <div class="jp-controls-holder">
+                            <div class="jp-volume-controls">
+                                <button class="jp-mute" role="button" tabindex="0">mute</button>
+                                <button class="jp-volume-max" role="button" tabindex="0">max volume</button>
+                                <div class="jp-volume-bar">
+                                    <div class="jp-volume-bar-value"></div>
+                                </div>
+                            </div>
+                            <div class="jp-controls">
+                                <button class="jp-previous" role="button" tabindex="0">previous</button>
+                                <button class="jp-play" role="button" tabindex="0">play</button>
+                                <button class="jp-stop" role="button" tabindex="0">stop</button>
+                                <button class="jp-next" role="button" tabindex="0">next</button>
+                            </div>
+                            <div class="jp-toggles">
+                                <button class="jp-repeat" role="button" tabindex="0">repeat</button>
+                                <button class="jp-shuffle" role="button" tabindex="0">shuffle</button>
+                                <button class="jp-full-screen" role="button" tabindex="0">full screen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="jp-playlist">
+                    <ul>
+                        <!-- The method Playlist.displayPlaylist() uses this unordered list -->
+                        <li></li>
+                    </ul>
+                </div>
+                <div class="jp-no-solution">
+                    <span>Update Required</span>
+                    To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <div class="row marketing">
+        <h3>下载地址</h3>
+        <ul class="list-group" id="video-source-list"></ul>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; Company 2014</p>
+    </footer>
+
+</div> <!-- /container -->
+
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="javascripts/ie10-viewport-bug-workaround.js"></script>
+
+<script>
+    $(function () {
+
+        $('#submit').click(function () {
+
+
+            var url = $('#url').val();
+
+            $.post('/video/getmp4',
+                    {
+                        url:encodeURI(url)
+                    },
+                    function (data,status) {
+                        if(data.code==0){
+
+                            if(data.data&&data.data.url){
+                                var str='';
+                                var playList = [];
+                                for(var i=0;i<data.data.url.length;i++){
+                                    console.log('========',data.data.url[i]);
+
+                                    var this_url = data.data.url[i]
+                                    playList.push({
+                                        title:"片段"+(i+1),
+                                        m4v:this_url
+                                    });
+
+                                    var $li = '<li class="list-group-item"><a href="$address" target="_blank">$address</a></li>';
+
+                                    str+=$li.replace(/\$address/ig,this_url);
+
+                                }
+                                $('#video-source-list').append(str);
+
+                                myPlaylist.setPlaylist(playList);
+
+
+                                $('#video').attr('src',data.data.url[0]);
+
+
+                            }
+
+                        }else{
+                            alert(data.msg);
+                        }
+
+                    });
+        });
+    })
+
+</script>
+</body>
+</html>
