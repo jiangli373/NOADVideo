@@ -13,9 +13,9 @@
 
     <!-- Bootstrap core CSS -->
     <link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
-    <link href="skin/pink.flag/css/jplayer.pink.flag.min.css" rel="stylesheet" type="text/css" />
+    <link href="skin/blue.monday/css/jplayer.blue.monday.min.css" rel="stylesheet" type="text/css" />
     <!-- Custom styles for this template -->
-    <link href="jumbotron-narrow.css" rel="stylesheet">
+    <link href="css/jumbotron-narrow.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="javascripts/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -73,7 +73,7 @@
         </p>
 
 
-        <div id="jp_container_N" class="jp-video" role="application" aria-label="media player">
+        <div id="jp_container_N" class="jp-video" role="application" aria-label="media player" style="margin: auto;">
             <div class="jp-type-playlist">
                 <div id="jquery_jplayer_N" class="jp-jplayer"></div>
                 <div class="jp-gui">
@@ -164,7 +164,6 @@
                                 var str='';
                                 var playList = [];
                                 for(var i=0;i<data.data.url.length;i++){
-                                    console.log('========',data.data.url[i]);
 
                                     var this_url = data.data.url[i]
                                     playList.push({
