@@ -5,11 +5,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="去除广告播放优酷，奇艺，搜狐视频">
+    <meta content="去除广告播放优酷，奇艺，搜狐视频" name="keywords" />
 
-    <title>去广告播放优酷，奇艺视频</title>
+    <title>去广告播放优酷，奇艺，搜狐视频</title>
 
     <!-- Bootstrap core CSS -->
     <link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
@@ -59,12 +58,37 @@
 <div class="container">
     <div class="header clearfix">
 
-        <h3 class="text-muted">无广告视频播放(现在只支持优酷，奇艺)</h3>
+        <h3 class="text-muted">无广告视频播放(现在支持优酷，奇艺，搜狐)</h3>
 
         例如：<br/>
              http://v.youku.com/v_show/id_XODI5ODQxMzEy.html<br/>
-             http://www.iqiyi.com/v_19rrhaotkg.html
+             http://www.iqiyi.com/v_19rrhaotkg.html<br/>
+             http://tv.sohu.com/20150410/n411073812.shtml
     </div>
+
+    <!-- JiaThis Button BEGIN -->
+    <div class="jiathis_style_32x32 clearfix header">
+        <a class="jiathis_button_qzone"></a>
+        <a class="jiathis_button_tsina"></a>
+        <a class="jiathis_button_tqq"></a>
+        <a class="jiathis_button_weixin"></a>
+        <a class="jiathis_button_renren"></a>
+        <a href="http://www.jiathis.com/share?uid=1787979" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+        <a class="jiathis_counter_style"></a>
+    </div>
+    <script type="text/javascript">
+        var jiathis_config = {
+            boldNum:0,
+            siteNum:7,
+            url:'http://video.nuonuo.me',
+            showClose:false,
+            title:"去除广告播放优酷，奇艺，搜狐视频",
+            summary:"我正在使用video.nuonuo.me观看",
+            data_track_clickback:false
+        }
+    </script>
+    <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1361869931398702" charset="utf-8"></script>
+    <!-- JiaThis Button END -->
 
     <div class="jumbotron">
         <h3>视频地址</h3>
@@ -73,10 +97,10 @@
         </p>
 
         <p>
-            <a class="btn btn-primary btn-lg" href="javascript:void(0)" role="button" id="submit" >提交</a>
+            <a class="btn btn-primary btn-lg"  id="add" >提交</a>
         </p>
 
-
+        <h3 id="title"></h3>
         <div id="jp_container_N" class="jp-video" role="application" aria-label="media player" style="margin: auto;">
             <div class="jp-type-playlist">
                 <div id="jquery_jplayer_N" class="jp-jplayer"></div>
@@ -138,7 +162,22 @@
         <h3>下载地址</h3>
         <ul class="list-group" id="video-source-list"></ul>
     </div>
-
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="1234567890" data-title="去广告播放优酷，奇艺，搜狐视频" data-url="http://video.nuonuo.me"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+        var duoshuoQuery = {short_name:"nuonuovideo"};
+        (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0]
+            || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+    </script>
+    <!-- 多说公共JS代码 end -->
     <footer class="footer">
         <p>源码地址：<a href="https://github.com/jiangli373/NOADVideo">https://github.com/jiangli373/NOADVideo</a></p>
     </footer>
@@ -152,8 +191,7 @@
 <script>
     $(function () {
 
-        $('#submit').click(function () {
-
+        $('#add').on('click',function () {
 
             var url = $('#url').val();
             if(!url){
@@ -175,7 +213,8 @@
                                     var this_url = data.data.url[i]
                                     playList.push({
                                         title:"片段"+(i+1),
-                                        m4v:this_url
+                                        m4v:this_url,
+                                        poster: data.data.coverImg
                                     });
 
                                     var $li = '<li class="list-group-item"><a href="$address" target="_blank">$address</a></li>';
@@ -183,12 +222,14 @@
                                     str+=$li.replace(/\$address/ig,this_url);
 
                                 }
-                                $('#video-source-list').empty().append(str);
-
+                                $('#video-source-list').empty().show().append(str);
+                                $('#title').empty().html(data.data.title);
+                                jiathis_config.title = data.data.title;
+                                jiathis_config.url += ("?url="+encodeURI(url));
                                 myPlaylist.setPlaylist(playList);
 
 
-                                $('#video').attr('src',data.data.url[0]);
+                                $('#video').attr('src',data.data.url[0]).attr('poster',data.data.coverImg);
 
 
                             }
@@ -199,7 +240,28 @@
 
                     });
         });
+
+        var url = GetRequest('url').url;
+
+        if(url){
+            $('#url').val(url);
+            $('#add').trigger('click');
+        }
+
     })
+
+    function GetRequest() {
+        var url = location.search; //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            var strs = str.split("&");
+            for(var i = 0; i < strs.length; i ++) {
+                theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
 
 </script>
 <div style="display: none">
