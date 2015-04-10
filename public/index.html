@@ -191,6 +191,7 @@
 <script>
     $(function () {
 
+        var domain = "http://video.nuonuo.me";
         $('#add').on('click',function () {
 
             var url = $('#url').val();
@@ -225,7 +226,7 @@
                                 $('#video-source-list').empty().show().append(str);
                                 $('#title').empty().html(data.data.title);
                                 jiathis_config.title = data.data.title;
-                                jiathis_config.url += ("?url="+encodeURI(url));
+                                jiathis_config.url = domain+ ("?url="+encodeURI(url));
                                 myPlaylist.setPlaylist(playList);
 
 
